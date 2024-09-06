@@ -13,12 +13,12 @@
 
         <div class="flex items-center space-x-4">
             <i (click)="subtract()" class="fa-solid fa-minus fa-2xl cursor-pointer"></i>
-            <h1 class="text-gray-500 tracking-widest title-font text-center mb-2">{{ course.progress }}%</h1>
+            <h1 class="text-gray-500 tracking-widest title-font text-center mb-2">{{ progressValueSubject.value }}%</h1>
             <i (click)="add()" class="fa-solid fa-plus fa-2xl cursor-pointer"></i>
         </div>
         
         <h1 class="text-gray-500 tracking-widest title-font mb-1">Evidencias:</h1>
-        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 mt-4 mb-4" id="multiple_files" type="file" multiple>
+        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 mt-4 mb-4" id="multiple_files" type="file" multiple (change)="onFileSelected($event)">
         <div class="max-h-40 overflow-auto">
             <span class="inline-block bg-blue-500 text-white rounded-full px-2 py-1 text-xs font-bold uppercase mr-2 mb-1" *ngFor="let file of course.evidenceFiles">{{ file.name }}</span>
         </div>

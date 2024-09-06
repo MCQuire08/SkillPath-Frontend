@@ -9,6 +9,7 @@ export const API_ROUTES = {
     COURSE: baseURL + server + port + apiUrlPath +'/course',
     PLAN: baseURL + server + port + apiUrlPath + '/plan',
     PLANEVIDENCE:baseURL + server + port + apiUrlPath + '/planEvidence',
-    USER: baseURL + server + port + apiUrlPath + '/user'
+    USER: baseURL + server + port + apiUrlPath + '/user',
+    COURSELINKS: baseURL + server + port + apiUrlPath + '/link'
   };
   

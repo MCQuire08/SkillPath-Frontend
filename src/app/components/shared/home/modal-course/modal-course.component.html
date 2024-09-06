@@ -12,11 +12,15 @@
       <h3 class="text-lg font-semibold mb-4">{{ course.course.name }}</h3>
 
       <img alt="{{ course.course.name }}" class="object-cover object-center w-full h-48 mb-6 rounded-lg"
-        [src]="course.course.description">
+        [src]="course.link">
 
-      <div class="mb-4 space-x-2">
+      <!-- <div class="mb-4 space-x-2">
         <span class="inline-block bg-blue-500 text-white rounded-full px-2 py-1 text-xs font-bold uppercase">{{ 
           course.categoryName }}</span>
+      </div> -->
+
+      <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700 mt-2 mb-2">
+        <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" [style.width.%]="course.progress">{{ course.progress }}%</div>
       </div>
 
       <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">Descripción:</h3>

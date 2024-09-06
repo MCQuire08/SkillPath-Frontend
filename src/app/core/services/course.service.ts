@@ -8,6 +8,7 @@ import { API_ROUTES } from '../shared/Routes';
 })
 export class CourseService {
   private apiUrl = API_ROUTES.COURSE;
+  private apiLinkUrl = API_ROUTES.COURSELINKS;
 
   constructor(private http:HttpClient) { }
 
@@ -18,5 +19,14 @@ export class CourseService {
       return new Observable<any>();
     }
     return this.http.get<any>(`${this.apiUrl}`);
+  }
+
+  getCoursesLink():Observable<any>{
+    const idUser = localStorage.getItem('idUser');
+
+    if (!idUser) {
+      return new Observable<any>();
+    }
+    return this.http.get<any>(`${this.apiLinkUrl}`);
   }
 }

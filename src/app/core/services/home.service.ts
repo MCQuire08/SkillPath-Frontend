@@ -32,6 +32,6 @@ export class HomeService {
       newProgress: newProgress
     };
 
-    return this.http.put(`${this.apiUrl}updateProgress/${courseId}`, body);
+    return this.http.put(`${this.apiUrl}/updateProgress/${courseId}`, body);
   }
 }
