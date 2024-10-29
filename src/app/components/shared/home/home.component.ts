@@ -10,13 +10,18 @@ import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ModalCourseComponent, HeaderComponent, FooterComponent,CommonModule],
+  imports: [
+    ModalCourseComponent,
+    HeaderComponent,
+    FooterComponent,
+    CommonModule,
+  ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  courses:any[] = [];
-  coursesLink:any[] = [];
+  courses: any[] = [];
+  coursesLink: any[] = [];
 
   constructor(
     private courseService: HomeService,
@@ -30,18 +35,18 @@ export class HomeComponent {
   loadCourses() {
     forkJoin({
       courses: this.courseService.getCourses(),
-      links: this.courseLinksService.getCoursesLink()
+      links: this.courseLinksService.getCoursesLink(),
     }).subscribe(
       ({ courses, links }) => {
-
-        this.courses = courses.map((course: { id: any, courseId:any; }) => {
-          const link = links.find((link: { id: any; }) => link.id === course.courseId);
+        this.courses = courses.map((course: { id: any; courseId: any }) => {
+          const link = links.find(
+            (link: { id: any }) => link.id === course.courseId
+          );
           return {
             ...course,
-            link: link ? link.description : ''
+            link: link ? link.description : '',
           };
         });
-        console.log("Data", this.courses);
       },
       (error) => {
         console.error('Error al cargar los cursos', error);
@@ -57,5 +62,4 @@ export class HomeComponent {
     //   }
     // );
   }
-  
 }

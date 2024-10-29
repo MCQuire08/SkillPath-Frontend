@@ -4,23 +4,41 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
 import { LoginService } from '../../../auth/service/login.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
   profileImageUrl: string = '';
   isProfileMenuOpen = false;
+  userRole: string | null;
 
-  constructor(private router: Router, private userService: UserService, private loginService: LoginService) {}
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private loginService: LoginService
+  ) {
+    this.userRole = '';
+  }
 
   ngOnInit(): void {
+    this.loadRole();
     this.loadProfileImage();
+  }
+
+  loadRole() {
+    this.userService.getProfile().subscribe(
+      (data) => {
+        this.userRole = data.role;
+      },
+      (error) => {
+        console.error('Error al cargar la informacion del usuario', error);
+      }
+    );
   }
 
   toggleProfileMenu() {
@@ -39,11 +57,11 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/category']);
   }
 
-  course(): void{
+  course(): void {
     this.router.navigate(['/course']);
   }
 
-  home(): void{
+  home(): void {
     this.router.navigate(['/home']);
   }
 
@@ -58,7 +76,7 @@ export class HeaderComponent implements OnInit {
           this.profileImageUrl = profile.linkImage;
         }
       },
-      error => {
+      (error) => {
         console.error('Error al obtener la imagen del perfil:', error);
       }
     );

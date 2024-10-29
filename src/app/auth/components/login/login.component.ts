@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {LoginService} from '../../service/login.service';
+import { LoginService } from '../../service/login.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -8,15 +8,24 @@ import { HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule,HttpClientModule],
+  imports: [FormsModule, HttpClientModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
   username: string = '';
   password: string = '';
 
   constructor(private authService: LoginService, private router: Router) {}
+
+  ngOnInit() {
+    if (typeof localStorage !== 'undefined') {
+      const token = localStorage.getItem('token');
+      if (token) {
+        this.router.navigate(['/home']);
+      }
+    }
+  }
 
   login(): void {
     this.authService.login(this.username, this.password).subscribe(
@@ -25,7 +34,7 @@ export class LoginComponent {
           Swal.fire({
             title: 'Inicio de sesión correcto',
             text: 'Bienvenido',
-            icon: 'success'
+            icon: 'success',
           });
           setTimeout(() => {
             this.router.navigate(['/home']);
@@ -34,7 +43,7 @@ export class LoginComponent {
           Swal.fire({
             title: 'Inicio de sesión inválido',
             text: 'Contraseña incorrecta',
-            icon: 'error'
+            icon: 'error',
           });
         }
       },
